@@ -1,43 +1,28 @@
-﻿# clean-pro-solutions-bff
+# Clean Pro Solutions - BFF (Backend For Frontend) 📱
 
-Backend For Frontend - Camada de agregaÃ§Ã£o para facilitar o consumo pelo Mobile/Web.
+## 🎯 Papel no Ecossistema
+O **BFF Service** atua como a fachada única para as aplicações cliente (Mobile e Web). Suas responsabilidades incluem:
+- Agregação de dados de múltiplos microserviços (Ex: Perfil + Agendamentos).
+- Simplificação da interface para o frontend.
+- Roteamento e balanceamento de carga básico via Eureka.
+- Formatação de respostas específicas para a experiência do usuário.
 
-## ðŸš€ Tecnologias
-- **Java 21**
-- **Spring Boot 3.3.4**
-- **Spring Cloud (Eureka, OpenFeign, Config)**
-- **MongoDB** (PersistÃªncia de dados)
-- **RabbitMQ** (Mensageria assÃ­ncrona)
-- **JaCoCo** (RelatÃ³rios de cobertura)
-- **SpringDoc OpenAPI** (DocumentaÃ§Ã£o Swagger)
+## 🚀 Tecnologias
+- **Java 21** & **Spring Boot 3.3.4**
+- **Spring Cloud Gateway / OpenFeign**
+- **Netflix Eureka** (Service Discovery)
 
-## ðŸ“Š Qualidade e Testes
-Este projeto possui uma regra de integridade de cÃ³digo rigorosa:
-- **Cobertura MÃ­nima**: 80% de instruÃ§Ãµes cobertas (MandatÃ³rio).
-- **Enforcement**: O build falha automaticamente via plugin JaCoCo na fase de erify caso a cobertura seja inferior ao limite.
+## 🛠️ Como Executar
 
-## ðŸ› ï¸ Como rodar
+### 1. Execução Isolada (Individual)
+Para rodar este serviço e suas dependências (Registry):
+```bash
+docker-compose up -d --build
+```
+O serviço estará disponível em `http://localhost:8080`.
 
-### PrÃ©-requisitos
-- Docker e Docker Compose instalados.
-- JDK 21 instalado localmente (opcional se usar Docker).
-
-### Via Maven (Local)
-`ash
-mvn clean verify
-`
-
-### Via Docker
-`ash
-docker build -t clean-pro-solutions-bff .
-`
-
-## ðŸ—ï¸ Arquitetura
-O serviÃ§o segue os princÃ­pios de **Clean Architecture** e **Domain-Driven Design (DDD)**, com as seguintes camadas:
-- **Controller**: Porta de entrada para requisiÃ§Ãµes REST.
-- **Service**: Regras de negÃ³cio e orquestraÃ§Ã£o.
-- **Repository**: PersistÃªncia desacoplada via Spring Data.
-- **Document/Entity**: Modelagem do domÃ­nio.
+### 2. Execução Integrada
+Este serviço é orquestrado pelo projeto principal [Clean Pro Platform](../README.md).
 
 ---
-Â© 2026 Clean Pro Solutions - Todos os direitos reservados.
+© 2026 Clean Pro Solutions - Desenvolvido por Emerson.
