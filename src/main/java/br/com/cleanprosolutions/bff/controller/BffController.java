@@ -7,10 +7,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * REST controller for the BFF exposing aggregated endpoints for front-ends.
@@ -32,5 +31,27 @@ public class BffController {
     public ResponseEntity<HomeResponse> getHomeData(@PathVariable final String userId) {
         log.info("GET /bff/home/{}", userId);
         return ResponseEntity.ok(service.getHomeData(userId));
+    }
+
+    @PostMapping("/auth/login")
+    @Operation(summary = "Proxy login request to Auth Service")
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, Object> request) {
+        log.info("POST /bff/auth/login");
+        return ResponseEntity.ok(service.login(request));
+    }
+
+    @PostMapping("/auth/register")
+    @Operation(summary = "Proxy register request to Auth Service")
+    public ResponseEntity<Void> register(@RequestBody Map<String, Object> request) {
+        log.info("POST /bff/auth/register");
+        service.register(request);
+        return ResponseEntity.status(201).build();
+    }
+
+    @PostMapping("/auth/refresh")
+    @Operation(summary = "Proxy refresh token request to Auth Service")
+    public ResponseEntity<Map<String, Object>> refresh(@RequestBody Map<String, Object> request) {
+        log.info("POST /bff/auth/refresh");
+        return ResponseEntity.ok(service.refresh(request));
     }
 }

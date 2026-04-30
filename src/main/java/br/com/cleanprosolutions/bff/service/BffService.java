@@ -1,5 +1,6 @@
 package br.com.cleanprosolutions.bff.service;
 
+import br.com.cleanprosolutions.bff.client.AuthClient;
 import br.com.cleanprosolutions.bff.client.CatalogClient;
 import br.com.cleanprosolutions.bff.client.UserClient;
 import br.com.cleanprosolutions.bff.dto.HomeResponse;
@@ -25,6 +26,31 @@ public class BffService {
 
     private final UserClient userClient;
     private final CatalogClient catalogClient;
+    private final AuthClient authClient;
+
+    /**
+     * Proxies login request to Auth Service.
+     */
+    public Map<String, Object> login(Map<String, Object> request) {
+        log.info("Proxying login request for email: {}", request.get("email"));
+        return authClient.login(request);
+    }
+
+    /**
+     * Proxies register request to Auth Service.
+     */
+    public void register(Map<String, Object> request) {
+        log.info("Proxying register request for email: {}", request.get("email"));
+        authClient.register(request);
+    }
+
+    /**
+     * Proxies refresh token request to Auth Service.
+     */
+    public Map<String, Object> refresh(Map<String, Object> request) {
+        log.info("Proxying refresh token request");
+        return authClient.refresh(request);
+    }
 
     /**
      * Builds the home page response by aggregating user profile and available services.
